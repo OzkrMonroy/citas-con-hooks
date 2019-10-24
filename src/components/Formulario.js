@@ -1,13 +1,15 @@
 import React, { Fragment, useState } from 'react';
 
 function Formulario({crearCita}) {
-  const [cita, actualizarCita] = useState({
+  const stateInicial = {
     mascota: '',
     propietario: '',
     fecha: '',
     hora: '',
     sintomas: ''
-  })
+  }
+
+  const [cita, actualizarCita] = useState(stateInicial)
 
   const actualizarState = e => {
     actualizarCita({
@@ -19,6 +21,8 @@ function Formulario({crearCita}) {
   const guardarCita = e => {
     e.preventDefault()
     crearCita(cita)
+    actualizarCita(stateInicial)
+    document.getElementById('mascota').focus()
   }
 
   return(
@@ -28,12 +32,14 @@ function Formulario({crearCita}) {
         onSubmit={guardarCita}
       >
         <label>Nombre Mascota</label>
-        <input 
+        <input
+          id="mascota" 
           type="text" 
           name="mascota"
           className="u-full-width" 
           placeholder="Nombre Mascota"
           onChange={actualizarState}
+          value={cita.mascota}
         />
 
         <label>Nombre Dueño</label>
@@ -43,6 +49,7 @@ function Formulario({crearCita}) {
           className="u-full-width"  
           placeholder="Nombre Dueño de la Mascota"
           onChange={actualizarState}
+          value={cita.propietario}
         />
 
         <label>Fecha</label>
@@ -51,6 +58,7 @@ function Formulario({crearCita}) {
           className="u-full-width"
           name="fecha"
           onChange={actualizarState}
+          value={cita.fecha}
         />               
 
         <label>Hora</label>
@@ -59,6 +67,7 @@ function Formulario({crearCita}) {
           className="u-full-width"
           name="hora" 
           onChange={actualizarState}
+          value={cita.hora}
         />
 
         <label>Sintomas</label>
@@ -66,6 +75,7 @@ function Formulario({crearCita}) {
           className="u-full-width"
           name="sintomas"
           onChange={actualizarState}
+          value={cita.sintomas}
         ></textarea>
 
         <button type="submit" className="button-primary u-full-width">Agregar</button>
